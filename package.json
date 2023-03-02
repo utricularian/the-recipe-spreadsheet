@@ -1,0 +1,14 @@
+{
+  "name": "The Recipe Spreadsheet",
+  "license": "MIT",
+  "engines": {
+    "node": "19.7.0",
+    "yarn": "1.22.19"
+  },
+  "scripts": {
+    "build": "yarn --cwd client install && yarn --cwd client build",
+    "deploy": "cp -a client/build/. public/",
+    "heroku-postbuild": "yarn build && yarn deploy"
+  }
+}
+
