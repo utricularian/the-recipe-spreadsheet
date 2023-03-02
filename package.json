@@ -1,5 +1,5 @@
 {
-  "name": "The Recipe Spreadsheet",
+  "name": "the-recipe-spreadsheet",
   "license": "MIT",
   "engines": {
     "node": "19.7.0",
