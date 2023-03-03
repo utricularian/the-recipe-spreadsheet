@@ -10,20 +10,6 @@ global_job_config:
       commands:
         - test-results gen-pipeline-report
 blocks:
-  - name: Rubocop
-    task:
-      jobs:
-        - name: Rubocop
-          commands:
-            - checkout
-            - cache restore
-            - bundle install --deployment --path vendor/bundle
-            - cache store
-            - bundle exec rubocop --format junit --out junit.xml
-      epilogue:
-        always:
-          commands:
-            - test-results publish --name "Rubocop" junit.xml
   - name: RSpec Tests
     task:
       env_vars:
@@ -32,6 +18,14 @@ blocks:
         - name: RAILS_ENV
           value: test
       jobs:
+        - name: Rubocop
+          commands:
+            - checkout
+            - sem-version ruby 3.2.1
+            - cache restore
+            - bundle install --deployment --path vendor/bundle
+            - cache store
+            - bundle exec rubocop --format junit --out junit.xml
         - name: RSpec Tests
           commands:
             - checkout
