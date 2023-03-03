@@ -32,7 +32,6 @@ blocks:
             - cache store
             - bundle exec rubocop
             - bundle exec brakeman
-
   - name: RSpec Tests
     dependencies:
       - Code scanning
@@ -68,4 +67,5 @@ after_pipeline:
   task:
     jobs:
       - name: Publish Results
-        command: test-results gen-pipeline-report
+        commands:
+          - test-results gen-pipeline-report
