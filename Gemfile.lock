@@ -201,6 +201,7 @@ GEM
       rubocop-capybara (~> 2.17)
     ruby-progressbar (1.12.0)
     thor (1.2.1)
+    timecop (0.9.6)
     timeout (0.3.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -229,6 +230,7 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   rubocop-rspec
+  timecop
 
 RUBY VERSION
    ruby 3.2.1p31
