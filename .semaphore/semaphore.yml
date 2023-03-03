@@ -23,3 +23,7 @@ blocks:
             - cache store
             - 'bundle exec rake db:setup'
             - bundle exec rspec
+      epilogue:
+        always:
+          commands:
+            - test-results publish junit.xml
