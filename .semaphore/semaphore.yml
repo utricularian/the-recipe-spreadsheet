@@ -10,7 +10,21 @@ global_job_config:
       commands:
         - test-results gen-pipeline-report
 blocks:
-  - name: Test
+  - name: Rubocop
+    task:
+      jobs:
+        - name: Rubocop
+          commands:
+            - checkout
+            - cache restore
+            - bundle install --deployment --path vendor/bundle
+            - cache store
+            - bundle exec rubocop --format junit --out junit.xml
+      epilogue:
+        always:
+          commands:
+            - test-results publish --name "Rubocop" junit.xml
+  - name: RSpec Tests
     task:
       env_vars:
         - name: DATABASE_URL
@@ -18,7 +32,7 @@ blocks:
         - name: RAILS_ENV
           value: test
       jobs:
-        - name: Test
+        - name: RSpec Tests
           commands:
             - checkout
             - sem-service start postgres 15
@@ -31,4 +45,4 @@ blocks:
       epilogue:
         always:
           commands:
-            - test-results publish junit.xml
+            - test-results publish --name \"🧪 RSpec\" junit.xml
