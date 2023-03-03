@@ -4,39 +4,68 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
-global_job_config:
-  epilogue:
-    always:
-      commands:
-        - test-results gen-pipeline-report
 blocks:
+  - name: Setup
+    dependencies: []
+    task:
+      jobs:
+        - name: bundle
+          commands:
+            - sem-version ruby 3.2.1
+            - sem-version node 19.7.0
+            - checkout
+            - cache restore
+            - bundle install
+            - cache store
+  - name: Code scanning
+    dependencies:
+      - Setup
+    task:
+      jobs:
+        - name: check style + security
+          commands:
+            - sem-version ruby 3.2.1
+            - sem-version node 19.7.0
+            - checkout
+            - cache restore
+            - bundle install
+            - cache store
+            - bundle exec rubocop
+            - bundle exec brakeman
+
   - name: RSpec Tests
+    dependencies:
+      - Code scanning
     task:
       env_vars:
         - name: DATABASE_URL
           value: 'postgresql://postgres:@0.0.0.0:5432/myapp_test'
         - name: RAILS_ENV
           value: test
+      prologue:
+        commands:
+          - sem-version ruby 3.2.1
+          - sem-version node 19.7.0
+          - checkout
+          - cache restore
+          - bundle install
+          - cache store
+          - sem-service start postgres 15
+          - 'bundle exec rake db:setup'
       jobs:
-        - name: Rubocop
+        - name: RSpec - model tests
           commands:
-            - checkout
-            - sem-version ruby 3.2.1
-            - cache restore
-            - bundle install --deployment --path vendor/bundle
-            - cache store
-            - bundle exec rubocop --format junit --out junit.xml
-        - name: RSpec Tests
+            - bundle exec rspec spec/models
+        - name: RSpec - controller tests
           commands:
-            - checkout
-            - sem-service start postgres 15
-            - sem-version ruby 3.2.1
-            - cache restore
-            - bundle install --deployment --path vendor/bundle
-            - cache store
-            - 'bundle exec rake db:setup'
-            - bundle exec rspec
+            - bundle exec rspec spec/controllers
       epilogue:
         always:
           commands:
-            - test-results publish --name \"🧪 RSpec\" junit.xml
+            - "[[ -f junit.xml ]] && test-results publish --name \"🧪 RSpec\" junit.xml"
+
+after_pipeline:
+  task:
+    jobs:
+      - name: Publish Results
+        command: test-results gen-pipeline-report
