@@ -75,6 +75,10 @@ blocks:
           commands:
             - "[[ -f junit.xml ]] && test-results publish --name \"🧪 RSpec\" junit.xml"
 
+promotions:
+  - name: Deploy to Heroku
+    pipeline_file: heroku.yml
+
 after_pipeline:
   task:
     jobs:
