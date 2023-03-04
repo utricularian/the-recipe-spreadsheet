@@ -67,9 +67,9 @@ blocks:
         - name: RSpec - model tests
           commands:
             - bundle exec rspec spec/models
-        - name: RSpec - controller tests
+        - name: RSpec - request tests
           commands:
-            - bundle exec rspec spec/controllers
+            - bundle exec rspec spec/requests
       epilogue:
         always:
           commands:
