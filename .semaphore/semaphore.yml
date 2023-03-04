@@ -22,7 +22,7 @@ blocks:
       - Setup
     task:
       jobs:
-        - name: check style + security
+        - name: check style
           commands:
             - sem-version ruby 3.2.1
             - sem-version node 19.7.0
@@ -31,7 +31,15 @@ blocks:
             - bundle install
             - cache store
             - bundle exec rubocop --format junit --out junit.xml
-            - bundle exec brakeman
+        - name: security
+          commands:
+            - sem-version ruby 3.2.1
+            - sem-version node 19.7.0
+            - checkout
+            - cache restore
+            - bundle install
+            - cache store
+            - bundle exec brakeman -f junit --out junit.xml
       epilogue:
         always:
           commands:
