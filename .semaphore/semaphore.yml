@@ -32,6 +32,10 @@ blocks:
             - cache store
             - bundle exec rubocop --format junit --out junit.xml
             - bundle exec brakeman
+      epilogue:
+        always:
+          commands:
+            - "[[ -f junit.xml ]] && test-results publish --name \"Check style\" junit.xml"
   - name: RSpec Tests
     dependencies:
       - Code scanning
