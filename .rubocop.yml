@@ -34,7 +34,13 @@ Rails:
   Enabled: true
 
 RSpec/ExampleLength:
-  Max: 10
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
 
 AllCops:
   Exclude:

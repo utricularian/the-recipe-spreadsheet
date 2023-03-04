@@ -1,5 +1,4 @@
 class ClicksController < ApplicationController
-
   def index
     render json: Click.all
   end

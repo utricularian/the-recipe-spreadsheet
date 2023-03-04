@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Click, type: :model do
-  let(:time) { Time.local(2023, 3, 2, 14, 44, 21) }
+RSpec.describe Click do
+  let(:time) { Time.zone.local(2023, 3, 2, 14, 44, 21) }
+
   before do
     Timecop.freeze(time)
   end
@@ -12,17 +13,21 @@ RSpec.describe Click, type: :model do
 
   describe '.click!' do
     context 'when there is no default Click' do
-      it 'creates the Click with info' do
-        expect(Click.count).to eq(0)
+      it 'creates the Click' do
+        expect { described_class.click! }.to change(described_class, :count).by(1)
+      end
 
-        Click.click!
+      describe 'the newly created Click' do
+        let(:click) { described_class.last }
 
-        expect(Click.count).to eq(1)
+        before do
+          described_class.click!
+        end
 
-        click = Click.last
-
-        expect(click.num_times).to eq(1)
-        expect(click.last_clicked_at).to eq(time)
+        it 'has the right info' do
+          expect(click.num_times).to eq(1)
+          expect(click.last_clicked_at).to eq(time)
+        end
       end
     end
   end
