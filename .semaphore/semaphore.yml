@@ -30,7 +30,7 @@ blocks:
             - cache restore
             - bundle install
             - cache store
-            - bundle exec rubocop
+            - bundle exec rubocop --format junit --out junit.xml
             - bundle exec brakeman
   - name: RSpec Tests
     dependencies:
