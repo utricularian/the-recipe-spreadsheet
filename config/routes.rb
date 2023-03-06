@@ -7,4 +7,8 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :clicks, only: [:index, :create]
+
+  scope '/api' do
+    resources :drinks
+  end
 end
