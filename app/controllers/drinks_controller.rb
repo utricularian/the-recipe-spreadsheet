@@ -1,5 +1,5 @@
 class DrinksController < ApiController
-  before_action :set_drink, only: %i[ show update destroy ]
+  before_action :set_drink, only: [:show, :update, :destroy]
 
   # GET /drinks
   def index
@@ -10,7 +10,7 @@ class DrinksController < ApiController
 
   # GET /drinks/1
   def show
-    render json: @drink.to_json(:include => { :ingredients => { :only => [:id, :description] }})
+    render json: @drink.to_json(include: { ingredients: { only: [:id, :description] } })
   end
 
   # POST /drinks
@@ -39,13 +39,14 @@ class DrinksController < ApiController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_drink
-      @drink = Drink.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def drink_params
-      params.require(:drink).permit(:title, :description, :steps, :source)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_drink
+    @drink = Drink.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def drink_params
+    params.require(:drink).permit(:title, :description, :steps, :source)
+  end
 end

@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe Drink, type: :model do
+RSpec.describe Drink do
   pending "add some examples to (or delete) #{__FILE__}"
 end
