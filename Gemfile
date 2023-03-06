@@ -3,11 +3,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.1'
 
+gem 'activeadmin'
 gem 'bootsnap', require: false
+gem 'devise'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rack-cors'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
+gem 'sass-rails'
+gem 'sprockets-rails'
 
 group :development, :test do
   gem 'brakeman'
