@@ -1,18 +1,36 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+
 import { store } from './app/store';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import LayoutPage from "./LayoutPage";
+import DrinkPage from "./DrinkPage";
+import ErrorPage from "./ErrorPage";
+
 import './index.css';
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LayoutPage />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "drinks/:drinkId",
+        element: <DrinkPage />,
+      }
+    ]
+  }
+])
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );
