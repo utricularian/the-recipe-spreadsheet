@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
     namespace :v1 do
       resources :drinks
-      resources :food_ingredients, only: [:show, :update, :create]
+      resources :food_ingredients, only: [:index, :show, :update, :create]
       resource :profile, only: [:show, :update]
     end
   end

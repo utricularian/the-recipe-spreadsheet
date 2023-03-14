@@ -3,6 +3,12 @@ module V1
     before_action :authenticate_user!, only: [:create, :update]
     before_action :set_food_ingredient, only: [:show, :update]
 
+    def index
+      food_ingredients = FoodIngredient.all
+
+      render json: food_ingredients.to_json
+    end
+
     def show
       render json: @food_ingredient.to_json
     end
@@ -13,7 +19,7 @@ module V1
       if food_ingredient.save
         render json: food_ingredient, status: :created
       else
-        render json: food_ingredient.errors, status: :unprocessable_entity
+        render json: { errors: food_ingredient.errors }, status: :unprocessable_entity
       end
     end
 
@@ -21,7 +27,7 @@ module V1
       if @food_ingredient.update(food_ingredient_params)
         render json: @food_ingredient
       else
-        render json: @food_ingredient.errors, status: :unprocessable_entity
+        render json: { errors: @food_ingredient.errors }, status: :unprocessable_entity
       end
     end
 
@@ -37,7 +43,7 @@ module V1
         :default_grams,
         :calories_per_gram,
         :fat_grams,
-        :carb_grambs,
+        :carb_grams,
         :protein_grams
       )
     end

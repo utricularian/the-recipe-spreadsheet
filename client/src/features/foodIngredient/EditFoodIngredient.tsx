@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
-import {FoodIngredient} from "../../types/FoodIngredient";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {selectUser} from "../../slices/UserSlice";
 import {
   getFoodIngredient,
   selectFoodIngredient,
   selectGetFoodIngredientError, selectUpdateFoodIngredientErrors, updateFoodIngredient
 } from "./FoodIngredientSlice";
+import {FoodIngredient} from "../../types/FoodIngredient";
 
-import styles from './EditFoodIngredient.module.css'
+import FoodIngredientForm from "./FoodIngredientForm";
 
 const EditFoodIngredient = () => {
   const dispatch = useAppDispatch()
@@ -24,13 +25,14 @@ const EditFoodIngredient = () => {
     proteinGrams: 0,
   })
 
+  const loggedInUser = useAppSelector(selectUser)
   const foodIngredientFromBackend = useAppSelector(selectFoodIngredient)
   const getFoodIngredientError = useAppSelector(selectGetFoodIngredientError)
   const updateFoodIngredientErrors = useAppSelector(selectUpdateFoodIngredientErrors)
 
   useEffect(() => {
     dispatch(getFoodIngredient(foodIngredientId))
-  }, [])
+  }, [foodIngredientId])
 
   useEffect(() => {
     if (foodIngredientFromBackend && foodIngredientFromBackend.id) {
@@ -38,106 +40,25 @@ const EditFoodIngredient = () => {
     }
   }, [foodIngredientFromBackend])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    setFoodIngredient({ ...foodIngredient, [e.target.name]: e.target.value })
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(updateFoodIngredient(foodIngredient))
   }
 
-  const renderError = () => {
-    const errors = updateFoodIngredientErrors || []
-    if (getFoodIngredientError) {
-      errors.push(getFoodIngredientError)
-    }
-    const list = errors.map(error => (
-      <li key={error}>{error}</li>
-    ))
-
-    return <div><ul>{list}</ul></div>
+  const errors = updateFoodIngredientErrors || []
+  if (getFoodIngredientError) {
+    errors.push(getFoodIngredientError)
   }
-
   const saveButtonName = foodIngredient && foodIngredient.id ? 'Update' : 'Create'
 
-  return (
-    <div>
-      {(getFoodIngredientError || (updateFoodIngredientErrors && updateFoodIngredientErrors.length > 0)) && renderError()}
-      <form onSubmit={handleSubmit}>
-        <div className={styles.Field}>
-          <span>Name:</span>
-          <span>
-            <input
-              type="text"
-              name="name"
-              value={foodIngredient.name}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.Field}>
-          <span>Default Grams:</span>
-          <span>
-            <input
-              type="text"
-              name="defaultGrams"
-              value={foodIngredient.defaultGrams}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.Field}>
-          <span>Calories Per Gram:</span>
-          <span>
-            <input
-              type="text"
-              name="caloriesPerGram"
-              value={foodIngredient.caloriesPerGram}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.Field}>
-          <span>Grams of Fat:</span>
-          <span>
-            <input
-              type="text"
-              name="fatGrams"
-              value={foodIngredient.fatGrams}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.Field}>
-          <span>Grams of Carbohydrates:</span>
-          <span>
-            <input
-              type="text"
-              name="carbGrams"
-              value={foodIngredient.carbGrams}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.Field}>
-          <span>Grams of Protein:</span>
-          <span>
-            <input
-              type="text"
-              name="proteinGrams"
-              value={foodIngredient.proteinGrams}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.Submit}>
-          <button type="submit">{saveButtonName}</button>
-        </div>
-      </form>
-    </div>
-  )
+  return <FoodIngredientForm
+    errors={errors}
+    foodIngredient={foodIngredient}
+    handleSubmit={handleSubmit}
+    loggedInUser={loggedInUser}
+    saveButtonLabel={saveButtonName}
+    setFoodIngredient={setFoodIngredient}
+  />
 }
 
 export default EditFoodIngredient

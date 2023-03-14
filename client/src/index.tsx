@@ -7,6 +7,7 @@ import LayoutPage from "./LayoutPage";
 import DrinkPage from "./DrinkPage";
 import ErrorPage from "./ErrorPage";
 import EditFoodIngredient from "./features/foodIngredient/EditFoodIngredient";
+import NewFoodIngredient from "./features/foodIngredient/NewFoodIngredient";
 import LoginPage from "./features/profile/LoginPage";
 import RegisterPage from "./features/profile/RegisterPage";
 
@@ -33,10 +34,10 @@ const router = createBrowserRouter([
         path: "drinks/:drinkId",
         element: <DrinkPage />,
       },
-      // {
-      //   path: "foodIngredients/new",
-      //   element: <NewFoodIngredient />
-      // },
+      {
+        path: "foodIngredients/new",
+        element: <NewFoodIngredient />
+      },
       {
         path: "foodIngredients/:foodIngredientId",
         element: <EditFoodIngredient />

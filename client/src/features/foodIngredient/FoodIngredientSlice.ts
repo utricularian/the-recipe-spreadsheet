@@ -22,10 +22,19 @@ const initialState: FoodIngredientState = {
 }
 
 interface CreateFoodIngredientError {
-  errors: {
-    [key: string]: string[]
+  payload: {
+    errors: {
+      [key: string]: string[]
+    }
   }
 }
+
+export const getFoodIngredients = createAsyncThunk(
+  'foodIngredient/index',
+  async () => {
+    return await fetchWrapper.get('/api/v1/food_ingredients.json')
+  }
+)
 
 export const createFoodIngredient = createAsyncThunk<FoodIngredient, FoodIngredient, { rejectValue: CreateFoodIngredientError }>(
   'foodIngredient/create',
@@ -69,7 +78,13 @@ export const getFoodIngredient = createAsyncThunk(
 export const foodIngredientSlice = createSlice({
   name: 'foodIngredient',
   initialState,
-  reducers: {},
+  reducers: {
+    clearFoodIngredient(state) {
+      state.foodIngredient = null
+      state.createErrors = []
+      state.updateErrors = []
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createFoodIngredient.fulfilled, (state, action) => {
@@ -79,7 +94,7 @@ export const foodIngredientSlice = createSlice({
       .addCase(createFoodIngredient.rejected, (state, action) => {
         const { payload } = action
         if (payload) {
-          const { errors } = payload
+          const { payload: {errors} } = payload
           if (errors) {
             const createErrors: string[] = []
             for (const [property, propertyErrors] of Object.entries(errors)) {
@@ -91,9 +106,14 @@ export const foodIngredientSlice = createSlice({
         }
         state.createErrors = [action.error.message || "Something went wrong"]
       })
+      .addCase(getFoodIngredients.fulfilled, (state, action) => {
+        state.foodIngredients = action.payload.map((foodIngredient: FoodIngredient) => camelCaseKeys(foodIngredient))
+      })
       .addCase(getFoodIngredient.fulfilled, (state, action) => {
         state.foodIngredient = camelCaseKeys(action.payload) as FoodIngredient
         state.getError = undefined
+        state.createErrors = []
+        state.updateErrors = []
       })
       .addCase(getFoodIngredient.rejected, (state, action) => {
         state.getError = action.error.message
@@ -105,7 +125,7 @@ export const foodIngredientSlice = createSlice({
       .addCase(updateFoodIngredient.rejected, (state, action) => {
         const { payload } = action
         if (payload) {
-          const { errors } = payload
+          const { payload: {errors} } = payload
           if (errors) {
             const updateErrors: string[] = []
             for (const [property, propertyErrors] of Object.entries(errors)) {
@@ -116,14 +136,16 @@ export const foodIngredientSlice = createSlice({
           }
         }
         state.updateErrors = [action.error.message || "Something went wrong"]
-
       })
   }
 })
+
+export const { clearFoodIngredient } = foodIngredientSlice.actions
 
 export const selectFoodIngredient = (state: RootState) => state.foodIngredient.foodIngredient
 export const selectFoodIngredients = (state: RootState) => state.foodIngredient.foodIngredients
 export const selectGetFoodIngredientError = (state: RootState) => state.foodIngredient.getError
 export const selectUpdateFoodIngredientErrors = (state: RootState) => state.foodIngredient.updateErrors
+export const selectCreateFoodIngredientErrors = (state: RootState) => state.foodIngredient.createErrors
 
 export default foodIngredientSlice.reducer

@@ -10,9 +10,6 @@ export const saveJWTinCookie = ({response}: {response: Response}) => {
       sameSite: 'strict'
     });
   }
-  else {
-    console.log('saveJWTinCookie - skipping')
-  }
 }
 
 export const injectJWTFromCookies = (headers: Headers) => {
