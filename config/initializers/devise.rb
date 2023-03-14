@@ -314,7 +314,7 @@ Devise.setup do |config|
   # ==> Configuration for JWT
   #
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+    jwt.secret = ENV.fetch('SECRET_KEY_BASE')
     jwt.dispatch_requests = [
       ['POST', %r{users/sign_in}]
     ]

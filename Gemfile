@@ -14,6 +14,7 @@ gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
 group :development, :test do
   gem 'brakeman'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'dotenv-rails'
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
