@@ -10,14 +10,14 @@ RSpec.describe 'Drinks' do
 
     it 'returns drinks' do
       Drink.create!(title: 'drink 1', created_at: 2.seconds.ago)
-      Drink.create!(title: 'drink 2', created_at: 1.seconds.ago)
+      Drink.create!(title: 'drink 2', created_at: 1.second.ago)
 
       get '/api/v1/drinks.json'
 
       json = response.parsed_body
       expect(json).to be_a(Array)
       expect(json.length).to eq(2)
-      expect(json.map { |drink| drink['title'] }).to eq(['drink 1', 'drink 2'])
+      expect(json.pluck('title')).to eq(['drink 1', 'drink 2'])
     end
   end
 
@@ -25,8 +25,9 @@ RSpec.describe 'Drinks' do
     let(:params) do
       { drink: { title: 'A drink' } }
     end
+
     def make_post
-      post '/api/v1/drinks.json', params: params
+      post '/api/v1/drinks.json', params:
     end
 
     it 'requires authentication' do
@@ -36,10 +37,12 @@ RSpec.describe 'Drinks' do
       expect(response).to be_unauthorized
     end
 
-    context 'while logged in' do
-      let(:user) { User.create!(email: 'foo@bar.com', password: 'abcdefghijklmnopqrstuv', jti: 'asdfasdfasdf') }
+    context 'logged in' do
+      let(:user) do
+        User.create!(email: 'foo@bar.com', password: 'abcdefghijklmnopqrstuv', jti: 'asdfasdfasdf')
+      end
 
-      before(:each) do
+      before do
         sign_in user
       end
 
@@ -55,9 +58,9 @@ RSpec.describe 'Drinks' do
         end
 
         it 'does not create a drink' do
-          expect {
+          expect do
             make_post
-          }.not_to change(Drink, :count)
+          end.not_to change(Drink, :count)
         end
       end
 
@@ -73,19 +76,19 @@ RSpec.describe 'Drinks' do
         end
 
         it 'creates a drink' do
-          expect {
+          expect do
             make_post
-          }.to change(Drink, :count).by(1)
+          end.to change(Drink, :count).by(1)
         end
 
         describe 'the created drink' do
           let(:drink) { Drink.last }
 
-          before(:each) do
+          before do
             make_post
           end
 
-          it 'should have a title' do
+          it 'has a title' do
             expect(drink.title).to eq('A drink')
           end
         end

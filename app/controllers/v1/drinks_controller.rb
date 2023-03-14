@@ -1,53 +1,55 @@
-class V1::DrinksController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update, :destroy]
-  before_action :set_drink, only: [:show, :update, :destroy]
+module V1
+  class DrinksController < ApplicationController
+    before_action :authenticate_user!, only: [:create, :update, :destroy]
+    before_action :set_drink, only: [:show, :update, :destroy]
 
-  # GET /drinks
-  def index
-    @drinks = Drink.select('id, title').all
+    # GET /drinks
+    def index
+      @drinks = Drink.select('id, title').all
 
-    render json: @drinks.to_json
-  end
-
-  # GET /drinks/1
-  def show
-    render json: @drink.to_json(include: { ingredients: { only: [:id, :description] } })
-  end
-
-  # POST /drinks
-  def create
-    @drink = Drink.new(drink_params)
-
-    if @drink.save
-      render json: @drink, status: :created
-    else
-      render json: @drink.errors, status: :unprocessable_entity
+      render json: @drinks.to_json
     end
-  end
 
-  # PATCH/PUT /drinks/1
-  def update
-    if @drink.update(drink_params)
-      render json: @drink
-    else
-      render json: @drink.errors, status: :unprocessable_entity
+    # GET /drinks/1
+    def show
+      render json: @drink.to_json(include: { ingredients: { only: [:id, :description] } })
     end
-  end
 
-  # DELETE /drinks/1
-  def destroy
-    @drink.destroy
-  end
+    # POST /drinks
+    def create
+      @drink = Drink.new(drink_params)
 
-  private
+      if @drink.save
+        render json: @drink, status: :created
+      else
+        render json: @drink.errors, status: :unprocessable_entity
+      end
+    end
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_drink
-    @drink = Drink.find(params[:id])
-  end
+    # PATCH/PUT /drinks/1
+    def update
+      if @drink.update(drink_params)
+        render json: @drink
+      else
+        render json: @drink.errors, status: :unprocessable_entity
+      end
+    end
 
-  # Only allow a list of trusted parameters through.
-  def drink_params
-    params.require(:drink).permit(:title, :description, :steps, :source)
+    # DELETE /drinks/1
+    def destroy
+      @drink.destroy
+    end
+
+    private
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_drink
+      @drink = Drink.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def drink_params
+      params.require(:drink).permit(:title, :description, :steps, :source)
+    end
   end
 end
