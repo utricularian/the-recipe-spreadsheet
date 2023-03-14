@@ -5,6 +5,10 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {login, selectLoginErrors, selectUser} from "../../slices/UserSlice";
 import {User} from "../../types/User";
 
+import NavBar from "../../NavBar";
+
+import styles from './LoginPage.module.css'
+
 const LoginPage = () => {
   const dispatch = useAppDispatch();
   const loggedInUser = useAppSelector(selectUser);
@@ -17,39 +21,44 @@ const LoginPage = () => {
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(login(user));
   }
 
   return loggedInUser ? <Navigate to={'/'} /> : (
-    <div className="LoginPage">
-      <div className="LoginErrors">{loginErrors && 'Username or password was incorrect'}</div>
-      <form>
-        <div className="LoginField">
-          <span>Email:</span>
-          <span>
-              <input
-                type="email"
-                name="email"
-                value={user.email}
-                onChange={handleChange}
-              />
-            </span>
-        </div>
-        <div className="LoginField">
-          <span>Password:</span>
-          <span>
-              <input
-                type="password"
-                name="password"
-                value={user.password}
-                onChange={handleChange}
-              />
-            </span>
-        </div>
-        <div><input type="Submit" onClick={handleSubmit} /></div>
-      </form>
+    <div>
+      <NavBar isAuthenticationFlow={true} />
+      <div className={styles.LoginPage}>
+        {loginErrors && <div className={styles.LoginErrors}>Username or password was incorrect</div>}
+        <form className={styles.Form} onSubmit={handleSubmit}>
+          <div className={styles.Field}>
+            <span>Email</span>
+            <span>
+                <input
+                  type="email"
+                  name="email"
+                  value={user.email}
+                  onChange={handleChange}
+                />
+              </span>
+          </div>
+          <div className={styles.Field}>
+            <span>Password</span>
+            <span>
+                <input
+                  type="password"
+                  name="password"
+                  value={user.password}
+                  onChange={handleChange}
+                />
+              </span>
+          </div>
+          <div className={styles.Submit}>
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

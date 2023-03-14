@@ -1,0 +1,17 @@
+.UnauthenticatedUserControls {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 5px;
+
+    height: 100%;
+}
+
+.Login {
+    padding-right: 4px;
+    border-right: black solid 1px;
+}
+
+.Register {
+
+}

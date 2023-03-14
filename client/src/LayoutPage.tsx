@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "./app/hooks";
 import {createDrink, getDrinks, selectCreateErrors, selectCreateStatus, selectDrinks} from "./slices/DrinkSlice";
 import {getUser, selectUser} from "./slices/UserSlice";
 
-import UserBadge from "./features/profile/UserBadge";
+import NavBar from "./NavBar";
 
 import './LayoutPage.css';
 
@@ -39,9 +39,7 @@ function LayoutPage() {
 
   return (
     <div className="Home">
-      <div className="NavBar">
-        <UserBadge />
-      </div>
+      <NavBar />
 
       <div>
         <div>Create Status: {createStatus}</div>

@@ -1,0 +1,8 @@
+.UserBadgeInfo {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    justify-content: center;
+
+    height: 100%;
+}
