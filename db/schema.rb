@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_14_032312) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_14_175303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_14_032312) do
     t.string "source"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "food_ingredients", force: :cascade do |t|
+    t.string "name", null: false
+    t.float "default_grams", null: false
+    t.float "calories_per_gram", null: false
+    t.float "fat_grams", null: false
+    t.float "carb_grams", null: false
+    t.float "protein_grams", null: false
+    t.boolean "verified", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_food_ingredients_on_name", unique: true
   end
 
   create_table "ingredients", force: :cascade do |t|

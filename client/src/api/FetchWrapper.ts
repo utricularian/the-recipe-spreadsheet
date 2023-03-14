@@ -10,6 +10,29 @@ export class FetchNotOkError extends Error {
   }
 }
 
+export const camelToSnakeCase = (str: string) => str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`)
+
+export const snakeCaseKeys = (obj: {[key: string]: any}) => {
+  const returnObj: {[key: string]: any} = {}
+
+  for(let camel in obj) {
+    returnObj[camelToSnakeCase(camel)] = obj[camel]
+  }
+
+  return returnObj
+}
+
+export const snakeToCamelCase = (str: string) => str.replace(/(_([a-z]))/g, letter => letter[1].toUpperCase())
+export const camelCaseKeys = (obj: {[key: string]: any}) => {
+  const returnObj: {[key: string]: any} = {}
+
+  for(let snake in obj) {
+    returnObj[snakeToCamelCase(snake)] = obj[snake]
+  }
+
+  return returnObj
+}
+
 async function handleResponse(response: Response) {
   const json = await response.json()
   if (!response.ok) {

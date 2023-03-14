@@ -15,6 +15,7 @@ group :development, :test do
   gem 'brakeman'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
@@ -29,5 +30,6 @@ end
 
 group :test do
   gem 'rspec_junit_formatter'
+  gem 'shoulda-matchers'
   gem 'timecop'
 end

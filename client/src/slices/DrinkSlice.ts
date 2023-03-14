@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {Drink} from "../types/Drink";
+
 import {RootState} from "../app/store";
 import {fetchWrapper} from "../api/FetchWrapper";
+import {Drink} from "../types/Drink";
 
 export interface DrinkState {
   drinks: Drink[],
