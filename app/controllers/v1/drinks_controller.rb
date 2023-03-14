@@ -1,4 +1,4 @@
-class DrinksController < ApplicationController
+class V1::DrinksController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_drink, only: [:show, :update, :destroy]
 
@@ -19,7 +19,7 @@ class DrinksController < ApplicationController
     @drink = Drink.new(drink_params)
 
     if @drink.save
-      render json: @drink, status: :created, location: @drink
+      render json: @drink, status: :created
     else
       render json: @drink.errors, status: :unprocessable_entity
     end

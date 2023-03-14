@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users, defaults: { format: :json }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -8,8 +7,14 @@ Rails.application.routes.draw do
   resources :clicks, only: [:index, :create]
 
   scope '/api' do
-    resources :drinks
-    resource :profile, only: [:show, :update]
+    scope '/v1' do
+      devise_for :users, defaults: { format: :json }
+    end
+
+    namespace :v1 do
+      resources :drinks
+      resource :profile, only: [:show, :update]
+    end
   end
 
   get '*path', to: "application#fallback_index_html", constraints: ->(request) do

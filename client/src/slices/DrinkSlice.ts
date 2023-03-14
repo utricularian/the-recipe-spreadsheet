@@ -20,7 +20,7 @@ const initialState: DrinkState = {
 export const createDrink = createAsyncThunk(
   'drink/createDrink',
   async (drink: Drink) => {
-    return fetchWrapper.post('/api/drinks.json', {
+    return fetchWrapper.post('/api/v1/drinks.json', {
       body: {drink}
     });
   }
@@ -29,7 +29,7 @@ export const createDrink = createAsyncThunk(
 export const getDrink = createAsyncThunk(
   'drink/getDrink',
   async (id: number) => {
-    const response = await fetch(`/api/drinks/${id}`)
+    const response = await fetch(`/api/v1/drinks/${id}`)
     if (!response.ok) {
       throw new Error(response.statusText);
     }
@@ -43,7 +43,7 @@ export const getDrink = createAsyncThunk(
 export const getDrinks = createAsyncThunk(
   'drink/getDrinks',
   async () => {
-    const response = await fetch('/api/drinks');
+    const response = await fetch('/api/v1/drinks');
     if (!response.ok) {
       throw new Error(response.statusText);
     }

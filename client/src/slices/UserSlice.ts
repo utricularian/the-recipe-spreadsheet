@@ -16,7 +16,7 @@ const initialState: UserState = {
 export const login = createAsyncThunk(
   'user/login',
   async (user: User) => {
-    const json = await fetchWrapper.post('/users/sign_in.json', {
+    const json = await fetchWrapper.post('/api/v1/users/sign_in.json', {
       body: { user },
       useJIT: false,
     });
@@ -30,7 +30,7 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk(
   'user/logout',
   async () => {
-    return await fetchWrapper.delete('/users/sign_out.json')
+    return await fetchWrapper.delete('/api/v1/users/sign_out.json')
   }
 )
 
