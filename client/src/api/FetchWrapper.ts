@@ -1,13 +1,19 @@
 import {injectJWTFromCookies, saveJWTinCookie} from "./Authentication";
 
+export class FetchNotOkError extends Error {
+  payload: object
+
+  constructor(message: string, payload: object) {
+    super(message)
+    this.name = this.constructor.name
+    this.payload = payload
+  }
+}
 
 async function handleResponse(response: Response) {
   const json = await response.json()
-  console.log('handleResponse json', json)
-  console.log('handleResponse response.statusText', response.statusText)
   if (!response.ok) {
-    const message = 'error' in json ? json.error : JSON.stringify(json)
-    return Promise.reject(message || response.statusText);
+    throw new FetchNotOkError(response.statusText, json);
   }
 
   saveJWTinCookie({ response });

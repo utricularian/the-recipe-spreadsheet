@@ -1,17 +1,48 @@
 import {User} from "../types/User";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../app/store";
-import {fetchWrapper} from "../api/FetchWrapper";
+import {FetchNotOkError, fetchWrapper} from "../api/FetchWrapper";
 
 export interface UserState {
   user: User | null,
   loginErrors: string | undefined,
+  registerErrors: string[],
 }
 
 const initialState: UserState = {
   user: null,
   loginErrors: undefined,
+  registerErrors: [],
 }
+
+interface RegistrationError {
+  errors: {
+    [key: string]: string[]
+  }
+}
+
+export const register = createAsyncThunk<User, User, { rejectValue: RegistrationError }>(
+  'user/register',
+  async (user: User, { rejectWithValue }) => {
+    try {
+      const json = await fetchWrapper.post('/api/v1/users.json', {
+        body: { user },
+        useJIT: false,
+      })
+
+      return json;
+    } catch (err) {
+      if (err instanceof FetchNotOkError) {
+        return rejectWithValue(err.payload as RegistrationError)
+      }
+      return rejectWithValue({
+        errors: {
+          'Registration': [`had unhandled error ${JSON.stringify(err)}`]
+        }
+      })
+    }
+  }
+)
 
 export const login = createAsyncThunk(
   'user/login',
@@ -37,7 +68,7 @@ export const logout = createAsyncThunk(
 export const getUser = createAsyncThunk(
   'user/getUser',
   async () => {
-    return await fetchWrapper.get('/api/profile.json');
+    return await fetchWrapper.get('/api/v1/profile.json');
   }
 )
 
@@ -48,26 +79,42 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        console.log('login.fulfilled', action.payload);
         state.user = action.payload;
+        state.loginErrors = undefined
       })
       .addCase(login.rejected, (state, action) => {
-        console.log('login.rejected', action.error);
+        state.user = null
         state.loginErrors = action.error.message;
       })
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.registerErrors = []
+      })
+      .addCase(register.rejected, (state, action) => {
+        const { payload } = action
+        if (payload) {
+          const { errors } = payload
+          if (errors) {
+            const registerErrors: string[] = []
+            for (const [userProperty, propertyErrors] of Object.entries(errors)) {
+              propertyErrors.forEach(propertyError => {
+                registerErrors.push(`${userProperty} ${propertyError}`)
+              })
+            }
+            state.registerErrors = registerErrors
+
+            return
+          }
+        }
+        state.registerErrors = [action.error.message || "Something went wrong"]
+      })
       .addCase(logout.fulfilled, (state) => {
-        console.log('logout.fulfilled');
         state.user = null;
       })
-      .addCase(logout.rejected, (state, action) => {
-        console.log('logout.rejected', action);
-      })
       .addCase(getUser.fulfilled, (state, action) => {
-        console.log('getUser.fulfilled', action.payload);
         state.user = action.payload;
       })
       .addCase(getUser.rejected, (state, action) => {
-        console.log('getUser.rejected', action);
         state.user = null;
       })
   }
@@ -75,5 +122,6 @@ export const userSlice = createSlice({
 
 export const selectUser = (state: RootState) => state.user.user;
 export const selectLoginErrors = (state: RootState) => state.user.loginErrors;
+export const selectRegisterErrors = (state: RootState) => state.user.registerErrors;
 
 export default userSlice.reducer;

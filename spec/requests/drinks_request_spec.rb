@@ -37,7 +37,7 @@ RSpec.describe 'Drinks' do
       expect(response).to be_unauthorized
     end
 
-    context 'logged in' do
+    context 'when logged in' do
       let(:user) do
         User.create!(email: 'foo@bar.com', password: 'abcdefghijklmnopqrstuv', jti: 'asdfasdfasdf')
       end

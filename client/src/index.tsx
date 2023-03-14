@@ -3,15 +3,26 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
-import { store } from './app/store';
-import reportWebVitals from './reportWebVitals';
 import LayoutPage from "./LayoutPage";
 import DrinkPage from "./DrinkPage";
 import ErrorPage from "./ErrorPage";
+import LoginPage from "./features/profile/LoginPage";
+import RegisterPage from "./features/profile/RegisterPage";
+
+import { store } from './app/store';
+import reportWebVitals from './reportWebVitals';
 
 import './index.css';
 
 const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/register',
+    element: <RegisterPage />,
+  },
   {
     path: "/",
     element: <LayoutPage />,
