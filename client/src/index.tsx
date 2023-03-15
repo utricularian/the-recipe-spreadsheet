@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
+import './bootstrapOverrides.scss';
+
 import LayoutPage from "./LayoutPage";
 import ErrorPage from "./ErrorPage";
 import EditFoodIngredient from "./features/foodIngredient/EditFoodIngredient";

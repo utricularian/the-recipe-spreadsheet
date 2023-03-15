@@ -35,84 +35,96 @@ const FoodIngredientForm = (params: FoodIngredientFormProps) => {
 
   const renderError = () => {
     const list = errors.map(error => (
-      <li key={error}>{error}</li>
+      <div key={error}>{error}</div>
     ))
-    return <div className={styles.Errors}><ul>{list}</ul></div>
+    return <div className="alert alert-danger" role="alert">{list}</div>
   }
 
   return (
     <div className={styles.Container}>
       {errors.length > 0 && renderError()}
-      <form className={styles.Form} onSubmit={handleSubmit}>
-        <div className={styles.Field}>
-          <span>Name:</span>
-          <span>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3 row">
+          <label htmlFor="name" className="col-sm-4 col-form-label">Name</label>
+          <div className="col-sm-8">
             <input
+              id="name"
               type="text"
+              className="form-control"
               name="name"
               value={foodIngredient.name}
               onChange={handleChange}
             />
-          </span>
+          </div>
         </div>
-        <div className={styles.Field}>
-          <span>Default Grams:</span>
-          <span>
+        <div className="mb-3 row">
+          <label htmlFor="defaultGrams" className="col-sm-4 col-form-label">Grams per Serving</label>
+          <div className="col-sm-8">
             <input
+              id="defaultGrams"
               type="text"
+              className="form-control"
               name="defaultGrams"
               value={foodIngredient.defaultGrams}
               onChange={handleChange}
             />
-          </span>
+          </div>
         </div>
-        <div className={styles.Field}>
-          <span>Calories Per Gram:</span>
-          <span>
+        <div className="mb-3 row">
+          <label htmlFor="caloriesPerGram" className="col-sm-4 col-form-label">Calories per Serving</label>
+          <div className="col-sm-8">
             <input
+              id="caloriesPerGram"
               type="text"
+              className="form-control"
               name="caloriesPerGram"
               value={foodIngredient.caloriesPerGram}
               onChange={handleChange}
             />
-          </span>
+          </div>
         </div>
-        <div className={styles.Field}>
-          <span>Grams of Fat:</span>
-          <span>
+        <div className="mb-3 row">
+          <label htmlFor="fatGrams" className="col-sm-4 col-form-label">Grams of Fat per Serving</label>
+          <div className="col-sm-8">
             <input
+              id="fatGrams"
               type="text"
+              className="form-control"
               name="fatGrams"
               value={foodIngredient.fatGrams}
               onChange={handleChange}
             />
-          </span>
+          </div>
         </div>
-        <div className={styles.Field}>
-          <span>Grams of Carbohydrates:</span>
-          <span>
+        <div className="mb-3 row">
+          <label htmlFor="carbGrams" className="col-sm-4 col-form-label">Grams of Carbs per Serving</label>
+          <div className="col-sm-8">
             <input
+              id="carbGrams"
               type="text"
+              className="form-control"
               name="carbGrams"
               value={foodIngredient.carbGrams}
               onChange={handleChange}
             />
-          </span>
+          </div>
         </div>
-        <div className={styles.Field}>
-          <span>Grams of Protein:</span>
-          <span>
+        <div className="mb-3 row">
+          <label htmlFor="proteinGrams" className="col-sm-4 col-form-label">Grams of Proteins per Serving</label>
+          <div className="col-sm-8">
             <input
+              id="proteinGrams"
               type="text"
+              className="form-control"
               name="proteinGrams"
               value={foodIngredient.proteinGrams}
               onChange={handleChange}
             />
-          </span>
+          </div>
         </div>
         {loggedInUser && (
-          <div className={styles.Submit}>
-            <button type="submit">{saveButtonLabel}</button>
+          <div>
+            <button type="submit" className="btn btn-primary">{saveButtonLabel}</button>
           </div>
         )}
       </form>

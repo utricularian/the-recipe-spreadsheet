@@ -19,7 +19,7 @@ function LayoutPage() {
   }, [loggedInUser]);
 
   return (
-    <div className={styles.Home}>
+    <div className="container-sm">
       <NavBar />
       <Outlet />
     </div>

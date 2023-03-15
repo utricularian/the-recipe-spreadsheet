@@ -36,57 +36,61 @@ const UserForm = (params: UserFormProps) => {
 
   const renderErrors = () => {
     const list = errors.map(error => (
-      <li key={error}>{error}</li>
+      <div key={error}>{error}</div>
     ))
 
     return (
-      <div className={styles.Errors}>
-        <ul>{list}</ul>
+      <div className="alert alert-danger" role="alert">
+        {list}
       </div>
     )
   }
 
   return (
-    <div>
+    <div className="container-sm">
       <NavBar isAuthenticationFlow={true} />
       <div className={styles.Container}>
         {errors.length > 0 && renderErrors()}
         <form onSubmit={handleSubmit}>
-          <div className={styles.Field}>
-            <span>Email:</span>
-            <span>
-              <input
-                type="email"
-                name="email"
-                value={user.email}
-                onChange={handleChange}
-              />
-            </span>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email address</label>
+            <input
+              id="email"
+              type="email"
+              className="form-control"
+              aria-describedby="emailHelp"
+              name="email"
+              value={user.email}
+              onChange={handleChange}
+            />
+            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
           </div>
-          <div className={styles.Field}>
-            <span>Password:</span>
-            <span>
-              <input
-                type="password"
-                name="password"
-                value={user.password}
-                onChange={handleChange}
-              />
-            </span>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input
+              id="password"
+              type="password"
+              className="form-control"
+              name="password"
+              value={user.password}
+              onChange={handleChange}
+            />
           </div>
-          {isRegister && <div className={styles.Field}>
-            <span>Confirm Password:</span>
-            <span>
+          {isRegister && (
+            <div className="mb-3">
+              <label htmlFor="password_confirmation" className="form-label">Password Confirmation</label>
               <input
+                id="password_confirmation"
                 type="password"
+                className="form-control"
                 name="password_confirmation"
                 value={user.password_confirmation}
                 onChange={handleChange}
               />
-            </span>
-          </div>}
-          <div className={styles.Submit}>
-            <button type="submit">{submitLabel}</button>
+            </div>
+          )}
+          <div>
+            <button type="submit" className="btn btn-primary">{submitLabel}</button>
           </div>
         </form>
       </div>

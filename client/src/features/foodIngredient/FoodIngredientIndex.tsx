@@ -20,11 +20,11 @@ const FoodIngredientIndex = () => {
   const renderRows = () => {
     return foodIngredients.map(foodIngredient => {
       return (
-        <tr>
+        <tr key={foodIngredient.id}>
           <td>{foodIngredient.name}</td>
           <td>{foodIngredient.defaultGrams}</td>
           <td>{foodIngredient.caloriesPerGram}</td>
-          {loggedInUser && <td><Link to={`/foodIngredients/${foodIngredient.id}`}>Edit</Link></td>}
+          <td><Link to={`/foodIngredients/${foodIngredient.id}`}>{loggedInUser ? 'Edit' : 'Details'}</Link></td>
         </tr>
       )
     })
@@ -32,15 +32,19 @@ const FoodIngredientIndex = () => {
 
   return (
     <div className={styles.Container}>
-      {loggedInUser && <div><Link to={'/foodIngredients/new'}>Create</Link></div>}
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Grams per Serving</th>
-          <th>Calories per Serving</th>
-          {loggedInUser && <th></th>}
-        </tr>
-        {renderRows()}
+      {loggedInUser && <div><Link className="btn btn-primary" to={'/foodIngredients/new'}>Create New Ingredient</Link></div>}
+      <table className="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope='col'>Name</th>
+            <th scope='col'>Grams per Serving</th>
+            <th scope='col'>Calories per Serving</th>
+            <th scope='col'></th>
+          </tr>
+        </thead>
+        <tbody>
+          {renderRows()}
+        </tbody>
       </table>
     </div>
   )

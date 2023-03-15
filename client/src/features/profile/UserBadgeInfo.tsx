@@ -19,8 +19,7 @@ const UserBadgeInfo = ({ loggedInUser, onLogout }: UserBadgeInfoProps) => {
   return (
     <div className={styles.UserBadgeInfo}>
       <div className={styles.Email}>{loggedInUser.email}</div>
-      {/* TODO make this <a> a button */}
-      <div className={styles.Logout}><a href='#' onClick={handleLogout}>Logout</a></div>
+      <div className={styles.Logout}><button className="btn btn-link btn-sm" onClick={handleLogout}>Logout</button></div>
     </div>
   )
 }
