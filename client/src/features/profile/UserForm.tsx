@@ -3,7 +3,7 @@ import React from 'react'
 import NavBar from "../../NavBar";
 import {User} from "../../types/User"
 
-import styles from './UserForm.module.css'
+import styles from './UserForm.module.scss'
 
 interface UserFormProps {
   errors: string[]

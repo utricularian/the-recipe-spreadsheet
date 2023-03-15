@@ -3,7 +3,7 @@ import React from 'react'
 import {FoodIngredient} from "../../types/FoodIngredient";
 import {User} from "../../types/User";
 
-import styles from "./FoodIngredientForm.module.css";
+import styles from "./FoodIngredientForm.module.scss";
 
 interface FoodIngredientFormProps {
   errors: string[]
