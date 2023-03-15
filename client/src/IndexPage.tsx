@@ -1,11 +1,14 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
-// import './IndexPage.css';
+import styles from './IndexPage.module.css';
 
 function IndexPage() {
   return (
-    <div>
-      <header>Placeholder</header>
+    <div className={styles.Container}>
+      <ul>
+        <li><Link to={'/foodIngredients'}>Ingredients</Link></li>
+      </ul>
     </div>
   )
 }

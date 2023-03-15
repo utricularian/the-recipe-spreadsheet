@@ -15,6 +15,8 @@ import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
 
 import './index.css';
+import IndexPage from "./IndexPage";
+import FoodIngredientIndex from "./features/foodIngredient/FoodIngredientIndex";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +33,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        index: true,
+        element: <IndexPage />,
+      },
+      {
         path: "drinks/:drinkId",
         element: <DrinkPage />,
+      },
+      {
+        path: "foodIngredients",
+        element: <FoodIngredientIndex />,
       },
       {
         path: "foodIngredients/new",
