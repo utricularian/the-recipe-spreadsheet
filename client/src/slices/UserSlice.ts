@@ -25,7 +25,7 @@ export const register = createAsyncThunk<User, User, { rejectValue: Registration
   'user/register',
   async (user: User, { rejectWithValue }) => {
     try {
-      const json = await fetchWrapper.post('/api/v1/users.json', {
+      const json = await fetchWrapper.post('/api/v1/signup.json', {
         body: { user },
         useJIT: false,
       })
@@ -47,7 +47,7 @@ export const register = createAsyncThunk<User, User, { rejectValue: Registration
 export const login = createAsyncThunk(
   'user/login',
   async (user: User) => {
-    const json = await fetchWrapper.post('/api/v1/users/sign_in.json', {
+    const json = await fetchWrapper.post('/api/v1/login.json', {
       body: { user },
       useJIT: false,
     });
@@ -61,7 +61,7 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk(
   'user/logout',
   async () => {
-    return await fetchWrapper.delete('/api/v1/users/sign_out.json')
+    return await fetchWrapper.delete('/api/v1/logout.json')
   }
 )
 
