@@ -1,4 +1,4 @@
-.RegisterPage {
+.Container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +7,7 @@
     padding-top: 100px;
 }
 
-.RegisterErrors {
+.Errors {
     margin-bottom: 40px;
     padding: 10px 20px;
 
@@ -15,10 +15,10 @@
     background-color: lightpink;
     border-radius: 5px;
 }
-.RegisterErrors ul {
+.Errors ul {
     all: unset;
 }
-.RegisterErrors li {
+.Errors li {
     list-style-type: none;
 }
 
