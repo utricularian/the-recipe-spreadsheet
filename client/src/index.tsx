@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
 import LayoutPage from "./LayoutPage";
-import DrinkPage from "./DrinkPage";
 import ErrorPage from "./ErrorPage";
 import EditFoodIngredient from "./features/foodIngredient/EditFoodIngredient";
 import NewFoodIngredient from "./features/foodIngredient/NewFoodIngredient";
@@ -35,10 +34,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <IndexPage />,
-      },
-      {
-        path: "drinks/:drinkId",
-        element: <DrinkPage />,
       },
       {
         path: "foodIngredients",

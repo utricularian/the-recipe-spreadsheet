@@ -4,13 +4,24 @@ module V1
     before_action :set_food_ingredient, only: [:show, :update]
 
     def index
-      food_ingredients = FoodIngredient.all
+      food_ingredients = FoodIngredient.select(
+        'id, name, default_grams, calories_per_gram, fat_grams, carb_grams, protein_grams, verified'
+      ).all
 
       render json: food_ingredients.to_json
     end
 
     def show
-      render json: @food_ingredient.to_json
+      render json: @food_ingredient.to_json(only: [
+                                              :id,
+                                              :name,
+                                              :default_grams,
+                                              :calories_per_gram,
+                                              :fat_grams,
+                                              :carb_grams,
+                                              :protein_grams,
+                                              :verified
+                                            ])
     end
 
     def create
