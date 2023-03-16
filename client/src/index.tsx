@@ -18,6 +18,7 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import IndexPage from "./IndexPage";
 import FoodIngredientIndex from "./features/foodIngredient/FoodIngredientIndex";
+import PantryIngredientIndex from "./features/pantry/PantryIngredientIndex";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "foodIngredients/:foodIngredientId",
         element: <EditFoodIngredient />
+      },
+      {
+        path: "pantryItems",
+        element: <PantryIngredientIndex />
       }
     ]
   }

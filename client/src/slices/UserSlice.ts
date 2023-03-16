@@ -4,15 +4,17 @@ import {RootState} from "../app/store";
 import {FetchNotOkError, fetchWrapper} from "../api/FetchWrapper";
 
 export interface UserState {
-  user: User | null,
+  hasFetchedUser: boolean,
   loginErrors: string | undefined,
   registerErrors: string[],
+  user: User | null,
 }
 
 const initialState: UserState = {
-  user: null,
+  hasFetchedUser: false,
   loginErrors: undefined,
   registerErrors: [],
+  user: null,
 }
 
 interface RegistrationError {
@@ -113,9 +115,11 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.hasFetchedUser = true
       })
       .addCase(getUser.rejected, (state, action) => {
         state.user = null;
+        state.hasFetchedUser = true
       })
   }
 });
@@ -123,5 +127,6 @@ export const userSlice = createSlice({
 export const selectUser = (state: RootState) => state.user.user;
 export const selectLoginErrors = (state: RootState) => state.user.loginErrors;
 export const selectRegisterErrors = (state: RootState) => state.user.registerErrors;
+export const selectHasFetchedUser = (state: RootState) => state.user.hasFetchedUser;
 
 export default userSlice.reducer;

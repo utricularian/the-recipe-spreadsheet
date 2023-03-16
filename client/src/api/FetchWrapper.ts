@@ -34,9 +34,10 @@ export const camelCaseKeys = (obj: {[key: string]: any}) => {
 }
 
 async function handleResponse(response: Response) {
-  const json = await response.json()
+  const text = await response.text()
+  const json = text.length ? JSON.parse(text) : {}
   if (!response.ok) {
-    throw new FetchNotOkError(response.statusText, json);
+    throw new FetchNotOkError(response.statusText, {message: text});
   }
 
   saveJWTinCookie({ response });
