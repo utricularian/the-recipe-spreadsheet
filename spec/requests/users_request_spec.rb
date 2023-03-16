@@ -18,9 +18,10 @@ RSpec.describe 'User API' do
       expect(response.headers['Authorization']).not_to be_nil
 
       json = response.parsed_body
-      expect(json.keys).to match_array(['id', 'email'])
+      expect(json.keys).to match_array(['id', 'email', 'pantry_id'])
       expect(json['id']).not_to be_nil
       expect(json['email']).to eq(draft.email)
+      expect(json['pantry_id']).not_to be_blank
     end
 
     context 'with incorrect credentials' do
@@ -56,10 +57,10 @@ RSpec.describe 'User API' do
       expect(response.headers['Authorization']).not_to be_nil
 
       json = response.parsed_body
-      expect(json).to eq({
-                           'id' => user.id,
-                           'email' => user.email
-                         })
+      expect(json.keys).to match_array(['id', 'email', 'pantry_id'])
+      expect(json['id']).to eq(user.id)
+      expect(json['email']).to eq(user.email)
+      expect(json['pantry_id']).not_to be_blank
     end
 
     context 'with incorrect credentials' do
@@ -110,7 +111,7 @@ RSpec.describe 'User API' do
     end
 
     context 'when logged in' do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, pantry_id: 'foobarbaz') }
 
       before do
         sign_in user
@@ -123,7 +124,8 @@ RSpec.describe 'User API' do
         json = response.parsed_body
         expect(json).to eq({
                              'id' => user.id,
-                             'email' => user.email
+                             'email' => user.email,
+                             'pantry_id' => user.pantry_id
                            })
       end
     end

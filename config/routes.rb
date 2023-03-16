@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
     namespace :v1 do
       resources :food_ingredients, only: [:index, :show, :update, :create]
+      resources :pantry_ingredients, only: [:index, :create, :destroy]
+      delete '/pantry_ingredients', to: 'pantry_ingredients#clear'
       resource :profile, only: [:show, :update]
     end
   end
