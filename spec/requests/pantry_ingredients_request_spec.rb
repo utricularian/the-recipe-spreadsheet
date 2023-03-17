@@ -78,7 +78,7 @@ RSpec.describe 'Pantry Ingredients API' do
                                id: pantry_ingredient_c.id,
                                pantry_id:,
                                food_ingredient: food_ingredient_c,
-                             )
+                             ),
                            ])
       end
     end

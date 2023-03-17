@@ -72,7 +72,7 @@ RSpec.describe 'Recipe API' do
                            'food_ingredients' => [
                              expected_json_for_food_ingredient(ingredient_a),
                              expected_json_for_food_ingredient(ingredient_b),
-                             expected_json_for_food_ingredient(ingredient_c)
+                             expected_json_for_food_ingredient(ingredient_c),
                            ]
                          })
     end
@@ -131,7 +131,7 @@ RSpec.describe 'Recipe API' do
           id: recipe.recipe_food_ingredients[2].id,
           food_ingredient_id: recipe.recipe_food_ingredients[2].food_ingredient.id,
           recipe_id: recipe.id
-        }
+        },
       ]
     end
 
@@ -180,7 +180,7 @@ RSpec.describe 'Recipe API' do
                                        recipe_food_ingredients_attributes: [
                                          recipe_food_ingredients_attributes[0].merge(delete_flag),
                                          recipe_food_ingredients_attributes[1].merge(delete_flag),
-                                         recipe_food_ingredients_attributes[2]
+                                         recipe_food_ingredients_attributes[2],
                                        ]
                                      })
         put "/api/v1/user/recipes/#{recipe.id}.json", params: { recipe: remove_params }
@@ -200,7 +200,7 @@ RSpec.describe 'Recipe API' do
         name: recipe_name,
         recipe_food_ingredients_attributes: [
           { food_ingredient_id: food_ingredient_a.id },
-          { food_ingredient_id: food_ingredient_b.id }
+          { food_ingredient_id: food_ingredient_b.id },
         ]
       }
     end

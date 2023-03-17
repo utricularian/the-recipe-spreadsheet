@@ -45,7 +45,7 @@ module V1
               :id,
               :food_ingredient_id,
               :recipe_id,
-              :_destroy
+              :_destroy,
             ]
           },
         )

@@ -20,7 +20,7 @@ module V1
                                               :fat_grams,
                                               :carb_grams,
                                               :protein_grams,
-                                              :verified
+                                              :verified,
                                             ])
     end
 
