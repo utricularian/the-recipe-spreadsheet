@@ -37,7 +37,7 @@ blocks:
             - sem-version node 19.7.0
             - checkout
             - cache restore
-            - bundle install
+            - yarn --cwd client install
             - cache store
             - yarn --cwd client lintci
         - name: security
