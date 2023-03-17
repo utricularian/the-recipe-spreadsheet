@@ -12,16 +12,18 @@ module V1
     end
 
     def show
-      render json: @food_ingredient.to_json(only: [
-                                              :id,
-                                              :name,
-                                              :default_grams,
-                                              :calories_per_gram,
-                                              :fat_grams,
-                                              :carb_grams,
-                                              :protein_grams,
-                                              :verified,
-                                            ])
+      render json: @food_ingredient.to_json(
+        only: [
+          :id,
+          :name,
+          :default_grams,
+          :calories_per_gram,
+          :fat_grams,
+          :carb_grams,
+          :protein_grams,
+          :verified,
+        ],
+      )
     end
 
     def create
