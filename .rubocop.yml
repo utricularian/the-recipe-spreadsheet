@@ -11,6 +11,12 @@ Layout/ArrayAlignment:
 Layout/FirstArgumentIndentation:
   EnforcedStyle: consistent
 
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
 Layout/LineLength:
   Max: 130
 
