@@ -10,7 +10,7 @@ RSpec.describe 'Recipe API' do
       'fat_grams' => food_ingredient.fat_grams,
       'carb_grams' => food_ingredient.carb_grams,
       'protein_grams' => food_ingredient.protein_grams,
-      'verified' => food_ingredient.verified
+      'verified' => food_ingredient.verified,
     }
   end
 
@@ -39,8 +39,8 @@ RSpec.describe 'Recipe API' do
                                  'created_by' => {
                                    'id' => user.id,
                                    'email' => user.email,
-                                   'pantry_id' => user.pantry_id
-                                 }
+                                   'pantry_id' => user.pantry_id,
+                                 },
                                })
     end
   end
@@ -67,13 +67,13 @@ RSpec.describe 'Recipe API' do
                            'created_by' => {
                              'id' => recipe.created_by.id,
                              'email' => recipe.created_by.email,
-                             'pantry_id' => recipe.created_by.pantry_id
+                             'pantry_id' => recipe.created_by.pantry_id,
                            },
                            'food_ingredients' => [
                              expected_json_for_food_ingredient(ingredient_a),
                              expected_json_for_food_ingredient(ingredient_b),
                              expected_json_for_food_ingredient(ingredient_c),
-                           ]
+                           ],
                          })
     end
   end
@@ -120,17 +120,17 @@ RSpec.describe 'Recipe API' do
         {
           id: recipe.recipe_food_ingredients[0].id,
           food_ingredient_id: recipe.recipe_food_ingredients[0].food_ingredient.id,
-          recipe_id: recipe.id
+          recipe_id: recipe.id,
         },
         {
           id: recipe.recipe_food_ingredients[1].id,
           food_ingredient_id: recipe.recipe_food_ingredients[1].food_ingredient.id,
-          recipe_id: recipe.id
+          recipe_id: recipe.id,
         },
         {
           id: recipe.recipe_food_ingredients[2].id,
           food_ingredient_id: recipe.recipe_food_ingredients[2].food_ingredient.id,
-          recipe_id: recipe.id
+          recipe_id: recipe.id,
         },
       ]
     end
@@ -138,7 +138,7 @@ RSpec.describe 'Recipe API' do
     let(:params) do
       {
         name: recipe_name,
-        recipe_food_ingredients_attributes:
+        recipe_food_ingredients_attributes:,
       }
     end
 
@@ -166,7 +166,7 @@ RSpec.describe 'Recipe API' do
         add_params = params.merge({
                                     recipe_food_ingredients_attributes:
                                       recipe_food_ingredients_attributes +
-                                        [{ food_ingredient_id: create(:food_ingredient).id }]
+                                        [{ food_ingredient_id: create(:food_ingredient).id }],
                                   })
         put "/api/v1/user/recipes/#{recipe.id}.json", params: { recipe: add_params }
 
@@ -181,7 +181,7 @@ RSpec.describe 'Recipe API' do
                                          recipe_food_ingredients_attributes[0].merge(delete_flag),
                                          recipe_food_ingredients_attributes[1].merge(delete_flag),
                                          recipe_food_ingredients_attributes[2],
-                                       ]
+                                       ],
                                      })
         put "/api/v1/user/recipes/#{recipe.id}.json", params: { recipe: remove_params }
 
@@ -201,7 +201,7 @@ RSpec.describe 'Recipe API' do
         recipe_food_ingredients_attributes: [
           { food_ingredient_id: food_ingredient_a.id },
           { food_ingredient_id: food_ingredient_b.id },
-        ]
+        ],
       }
     end
 
@@ -241,7 +241,7 @@ RSpec.describe 'Recipe API' do
           expect(json['created_by']).to eq({
                                              'id' => user.id,
                                              'email' => user.email,
-                                             'pantry_id' => user.pantry_id
+                                             'pantry_id' => user.pantry_id,
                                            })
           expect(json['food_ingredients']).to be_a(Array)
           expect(json['food_ingredients'].length).to eq(2)
@@ -273,8 +273,8 @@ RSpec.describe 'Recipe API' do
           expect(response).to be_unprocessable
           expect(response.parsed_body).to eq({
                                                'errors' => {
-                                                 'name' => ["can't be blank"]
-                                               }
+                                                 'name' => ["can't be blank"],
+                                               },
                                              })
         end
 

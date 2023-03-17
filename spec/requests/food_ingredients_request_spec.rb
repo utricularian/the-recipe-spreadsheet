@@ -27,7 +27,7 @@ RSpec.describe 'Food Ingredients API' do
                               'fat_grams' => fi1.fat_grams,
                               'carb_grams' => fi1.carb_grams,
                               'protein_grams' => fi1.protein_grams,
-                              'verified' => fi1.verified
+                              'verified' => fi1.verified,
                             })
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe 'Food Ingredients API' do
                            'fat_grams' => food_ingredient.fat_grams,
                            'carb_grams' => food_ingredient.carb_grams,
                            'protein_grams' => food_ingredient.protein_grams,
-                           'verified' => food_ingredient.verified
+                           'verified' => food_ingredient.verified,
                          })
     end
   end
@@ -73,7 +73,7 @@ RSpec.describe 'Food Ingredients API' do
         calories_per_gram: existing_record.calories_per_gram,
         fat_grams: existing_record.fat_grams,
         carb_grams: existing_record.carb_grams,
-        protein_grams: existing_record.protein_grams
+        protein_grams: existing_record.protein_grams,
       } }
     end
 
@@ -125,8 +125,8 @@ RSpec.describe 'Food Ingredients API' do
             payload = response.parsed_body
             expect(payload).to eq({
                                     'errors' => {
-                                      'default_grams' => ['is not a number']
-                                    }
+                                      'default_grams' => ['is not a number'],
+                                    },
                                   })
           end
         end
@@ -143,7 +143,7 @@ RSpec.describe 'Food Ingredients API' do
         calories_per_gram: food_ingredient.calories_per_gram,
         fat_grams: food_ingredient.fat_grams,
         carb_grams: food_ingredient.carb_grams,
-        protein_grams: food_ingredient.protein_grams
+        protein_grams: food_ingredient.protein_grams,
       }
     end
 
@@ -222,8 +222,8 @@ RSpec.describe 'Food Ingredients API' do
           it 'includes the error' do
             expect(payload).to eq({
                                     'errors' => {
-                                      'default_grams' => ['is not a number']
-                                    }
+                                      'default_grams' => ['is not a number'],
+                                    },
                                   })
           end
         end

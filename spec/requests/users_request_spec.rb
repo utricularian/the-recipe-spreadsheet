@@ -34,8 +34,8 @@ RSpec.describe 'User API' do
         json = response.parsed_body
         expect(json).to eq({
                              'errors' => {
-                               'password' => ['is too short (minimum is 12 characters)']
-                             }
+                               'password' => ['is too short (minimum is 12 characters)'],
+                             },
                            })
       end
     end
@@ -125,7 +125,7 @@ RSpec.describe 'User API' do
         expect(json).to eq({
                              'id' => user.id,
                              'email' => user.email,
-                             'pantry_id' => user.pantry_id
+                             'pantry_id' => user.pantry_id,
                            })
       end
     end

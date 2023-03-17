@@ -26,8 +26,8 @@ module V1
             recipe,
             {
               params: {
-                full: true
-              }
+                full: true,
+              },
             },
           ).serializable_hash[:data][:attributes]
         else
@@ -46,7 +46,7 @@ module V1
               :food_ingredient_id,
               :recipe_id,
               :_destroy,
-            ]
+            ],
           },
         )
       end

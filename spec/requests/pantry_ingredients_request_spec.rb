@@ -15,7 +15,7 @@ RSpec.describe 'Pantry Ingredients API' do
       'fat_grams' => food_ingredient.fat_grams,
       'carb_grams' => food_ingredient.carb_grams,
       'protein_grams' => food_ingredient.protein_grams,
-      'verified' => food_ingredient.verified
+      'verified' => food_ingredient.verified,
     }
   end
 
@@ -24,7 +24,7 @@ RSpec.describe 'Pantry Ingredients API' do
       'id' => id,
       'pantry_id' => pantry_id,
       'food_ingredient_id' => food_ingredient.id,
-      'food_ingredient' => expected_json_for_food_ingredient(food_ingredient)
+      'food_ingredient' => expected_json_for_food_ingredient(food_ingredient),
     }
   end
 
@@ -87,7 +87,7 @@ RSpec.describe 'Pantry Ingredients API' do
   describe 'POST /api/v1/pantry_ingredients' do
     let(:params) do
       {
-        food_ingredient_id:
+        food_ingredient_id:,
       }
     end
 
@@ -148,8 +148,8 @@ RSpec.describe 'Pantry Ingredients API' do
           payload = response.parsed_body
           expect(payload).to eq({
                                   'errors' => {
-                                    'food_ingredient' => ['must exist']
-                                  }
+                                    'food_ingredient' => ['must exist'],
+                                  },
                                 })
         end
       end
