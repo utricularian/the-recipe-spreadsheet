@@ -31,6 +31,15 @@ blocks:
             - bundle install
             - cache store
             - bundle exec rubocop --format junit --out junit.xml
+        - name: check style (eslint)
+          commands:
+            - sem-version ruby 3.2.1
+            - sem-version node 19.7.0
+            - checkout
+            - cache restore
+            - bundle install
+            - cache store
+            - yarn --cwd client lintci
         - name: security
           commands:
             - sem-version ruby 3.2.1

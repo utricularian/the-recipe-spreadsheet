@@ -33,7 +33,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .ts --ext .tsx --ext .js",
+    "lintci": "eslint src --ext .ts --ext .tsx --ext .js -o ../junit.xml --format junit"
   },
   "eslintConfig": {
     "extends": [
