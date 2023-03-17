@@ -5,7 +5,7 @@ module V1
 
     def index
       food_ingredients = FoodIngredient.select(
-        'id, name, default_grams, calories_per_gram, fat_grams, carb_grams, protein_grams, verified'
+        'id, name, default_grams, calories_per_gram, fat_grams, carb_grams, protein_grams, verified',
       ).all
 
       render json: food_ingredients.to_json
@@ -55,7 +55,7 @@ module V1
         :calories_per_gram,
         :fat_grams,
         :carb_grams,
-        :protein_grams
+        :protein_grams,
       )
     end
   end

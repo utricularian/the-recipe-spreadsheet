@@ -16,8 +16,10 @@ module V1
     end
 
     def create
-      pantry_ingredient = PantryIngredient.new(pantry_id:,
-                                               food_ingredient:)
+      pantry_ingredient = PantryIngredient.new(
+        pantry_id:,
+        food_ingredient:,
+      )
 
       if pantry_ingredient.save
         json = V1::PantryIngredientSerializer.new(pantry_ingredient)
@@ -50,7 +52,7 @@ module V1
 
     def pantry_ingredient_params
       params.require(:pantry_ingredient).permit(
-        :food_ingredient_id
+        :food_ingredient_id,
       )
     end
   end

@@ -67,17 +67,17 @@ RSpec.describe 'Pantry Ingredients API' do
                              expected_json(
                                id: pantry_ingredient_a.id,
                                pantry_id:,
-                               food_ingredient: food_ingredient_a
+                               food_ingredient: food_ingredient_a,
                              ),
                              expected_json(
                                id: pantry_ingredient_b.id,
                                pantry_id:,
-                               food_ingredient: food_ingredient_b
+                               food_ingredient: food_ingredient_b,
                              ),
                              expected_json(
                                id: pantry_ingredient_c.id,
                                pantry_id:,
-                               food_ingredient: food_ingredient_c
+                               food_ingredient: food_ingredient_c,
                              )
                            ])
       end
@@ -117,8 +117,11 @@ RSpec.describe 'Pantry Ingredients API' do
 
         pantry_ingredient = PantryIngredient.last
         json = response.parsed_body
-        expect(json).to eq(expected_json(id: pantry_ingredient.id, pantry_id: user.pantry_id,
-                                         food_ingredient:))
+        expect(json).to eq(expected_json(
+                             id: pantry_ingredient.id,
+                             pantry_id: user.pantry_id,
+                             food_ingredient:,
+                           ))
       end
 
       describe 'the created record' do

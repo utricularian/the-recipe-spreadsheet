@@ -9,8 +9,7 @@ module V1
 
     def show
       recipe = Recipe.find(params[:id])
-      json = V1::RecipeSerializer.new(recipe,
-                                      { params: { full: true } }).serializable_hash[:data][:attributes]
+      json = V1::RecipeSerializer.new(recipe, { params: { full: true } }).serializable_hash[:data][:attributes]
       render json:, status: :ok
     end
   end

@@ -89,8 +89,7 @@ RSpec.describe 'Recipe API' do
 
       let!(:recipe_c) { create(:recipe, name: 'rC', created_by: user) }
       let!(:recipe_a) do
-        create(:recipe, name: 'rA', created_by: user,
-                        food_ingredients: create_list(:food_ingredient, 2))
+        create(:recipe, name: 'rA', created_by: user, food_ingredients: create_list(:food_ingredient, 2))
       end
       let!(:recipe_b) { create(:recipe, name: 'rb', created_by: user) }
 

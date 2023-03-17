@@ -15,14 +15,11 @@ Metrics/MethodLength:
 Style/Documentation:
   Enabled: false
 
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-Style/WordArray:
-  EnforcedStyle: brackets
-
-Style/SymbolArray:
-  EnforcedStyle: brackets
 
 Style/HashEachMethods:
   Enabled: true
@@ -32,6 +29,12 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/WordArray:
+  EnforcedStyle: brackets
 
 Rails:
   Enabled: true

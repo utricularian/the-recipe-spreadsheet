@@ -12,8 +12,7 @@ module V1
       def create
         recipe = Recipe.new(recipe_params.merge({ created_by: current_user }))
         if recipe.save
-          json = V1::RecipeSerializer.new(recipe,
-                                          { params: { full: true } }).serializable_hash[:data][:attributes]
+          json = V1::RecipeSerializer.new(recipe, { params: { full: true } }).serializable_hash[:data][:attributes]
           render json:, status: :created
         else
           render json: { errors: recipe.errors }, status: :unprocessable_entity
@@ -23,12 +22,14 @@ module V1
       def update
         recipe = Recipe.find(params[:id])
         if recipe.update(recipe_params)
-          render json: V1::RecipeSerializer.new(recipe,
-                                                {
-                                                  params: {
-                                                    full: true
-                                                  }
-                                                }).serializable_hash[:data][:attributes]
+          render json: V1::RecipeSerializer.new(
+            recipe,
+            {
+              params: {
+                full: true
+              }
+            },
+          ).serializable_hash[:data][:attributes]
         else
           render json: { errors: recipe.errors }, status: :unprocessable_entity
         end
@@ -46,7 +47,7 @@ module V1
               :recipe_id,
               :_destroy
             ]
-          }
+          },
         )
       end
     end
