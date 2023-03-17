@@ -20,15 +20,15 @@ RSpec.describe 'Food Ingredients API' do
       expect(json.pluck('name')).to eq(['FI 1', 'FI 2'])
 
       expect(json[0]).to eq({
-                              'id' => fi1.id,
-                              'name' => fi1.name,
-                              'default_grams' => fi1.default_grams,
-                              'calories_per_gram' => fi1.calories_per_gram,
-                              'fat_grams' => fi1.fat_grams,
-                              'carb_grams' => fi1.carb_grams,
-                              'protein_grams' => fi1.protein_grams,
-                              'verified' => fi1.verified,
-                            })
+        'id' => fi1.id,
+        'name' => fi1.name,
+        'default_grams' => fi1.default_grams,
+        'calories_per_gram' => fi1.calories_per_gram,
+        'fat_grams' => fi1.fat_grams,
+        'carb_grams' => fi1.carb_grams,
+        'protein_grams' => fi1.protein_grams,
+        'verified' => fi1.verified,
+      })
     end
   end
 
@@ -50,15 +50,15 @@ RSpec.describe 'Food Ingredients API' do
 
       json = response.parsed_body
       expect(json).to eq({
-                           'id' => food_ingredient.id,
-                           'name' => food_ingredient.name,
-                           'default_grams' => food_ingredient.default_grams,
-                           'calories_per_gram' => food_ingredient.calories_per_gram,
-                           'fat_grams' => food_ingredient.fat_grams,
-                           'carb_grams' => food_ingredient.carb_grams,
-                           'protein_grams' => food_ingredient.protein_grams,
-                           'verified' => food_ingredient.verified,
-                         })
+        'id' => food_ingredient.id,
+        'name' => food_ingredient.name,
+        'default_grams' => food_ingredient.default_grams,
+        'calories_per_gram' => food_ingredient.calories_per_gram,
+        'fat_grams' => food_ingredient.fat_grams,
+        'carb_grams' => food_ingredient.carb_grams,
+        'protein_grams' => food_ingredient.protein_grams,
+        'verified' => food_ingredient.verified,
+      })
     end
   end
 
@@ -124,10 +124,10 @@ RSpec.describe 'Food Ingredients API' do
             make_request
             payload = response.parsed_body
             expect(payload).to eq({
-                                    'errors' => {
-                                      'default_grams' => ['is not a number'],
-                                    },
-                                  })
+              'errors' => {
+                'default_grams' => ['is not a number'],
+              },
+            })
           end
         end
       end
@@ -221,10 +221,10 @@ RSpec.describe 'Food Ingredients API' do
 
           it 'includes the error' do
             expect(payload).to eq({
-                                    'errors' => {
-                                      'default_grams' => ['is not a number'],
-                                    },
-                                  })
+              'errors' => {
+                'default_grams' => ['is not a number'],
+              },
+            })
           end
         end
       end

@@ -8,7 +8,7 @@ RSpec.describe 'User API' do
       email ||= draft.email
       password ||= draft.password
       post '/api/v1/signup.json',
-           params: { user: { email:, password:, password_confirmation: password } }
+        params: { user: { email:, password:, password_confirmation: password } }
     end
 
     it 'returns auth headers' do
@@ -33,10 +33,10 @@ RSpec.describe 'User API' do
 
         json = response.parsed_body
         expect(json).to eq({
-                             'errors' => {
-                               'password' => ['is too short (minimum is 12 characters)'],
-                             },
-                           })
+          'errors' => {
+            'password' => ['is too short (minimum is 12 characters)'],
+          },
+        })
       end
     end
   end
@@ -123,10 +123,10 @@ RSpec.describe 'User API' do
         expect(response).to be_ok
         json = response.parsed_body
         expect(json).to eq({
-                             'id' => user.id,
-                             'email' => user.email,
-                             'pantry_id' => user.pantry_id,
-                           })
+          'id' => user.id,
+          'email' => user.email,
+          'pantry_id' => user.pantry_id,
+        })
       end
     end
   end

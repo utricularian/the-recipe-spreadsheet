@@ -31,8 +31,7 @@ module Users
     private
 
     def respond_with(resource, _opts = {})
-      render json: V1::UserSerializer.new(resource).serializable_hash[:data][:attributes],
-             status: :created
+      render json: V1::UserSerializer.new(resource).serializable_hash[:data][:attributes], status: :created
     end
 
     def respond_to_on_destroy

@@ -34,14 +34,14 @@ RSpec.describe 'Recipe API' do
       expect(json.pluck('name')).to eq(['A', 'b', 'C'])
 
       expect(json.first).to eq({
-                                 'id' => recipe_a.id,
-                                 'name' => recipe_a.name,
-                                 'created_by' => {
-                                   'id' => user.id,
-                                   'email' => user.email,
-                                   'pantry_id' => user.pantry_id,
-                                 },
-                               })
+        'id' => recipe_a.id,
+        'name' => recipe_a.name,
+        'created_by' => {
+          'id' => user.id,
+          'email' => user.email,
+          'pantry_id' => user.pantry_id,
+        },
+      })
     end
   end
 
@@ -62,19 +62,19 @@ RSpec.describe 'Recipe API' do
       json = response.parsed_body
       expect(json).to be_a(Hash)
       expect(json).to eq({
-                           'id' => recipe.id,
-                           'name' => recipe.name,
-                           'created_by' => {
-                             'id' => recipe.created_by.id,
-                             'email' => recipe.created_by.email,
-                             'pantry_id' => recipe.created_by.pantry_id,
-                           },
-                           'food_ingredients' => [
-                             expected_json_for_food_ingredient(ingredient_a),
-                             expected_json_for_food_ingredient(ingredient_b),
-                             expected_json_for_food_ingredient(ingredient_c),
-                           ],
-                         })
+        'id' => recipe.id,
+        'name' => recipe.name,
+        'created_by' => {
+          'id' => recipe.created_by.id,
+          'email' => recipe.created_by.email,
+          'pantry_id' => recipe.created_by.pantry_id,
+        },
+        'food_ingredients' => [
+          expected_json_for_food_ingredient(ingredient_a),
+          expected_json_for_food_ingredient(ingredient_b),
+          expected_json_for_food_ingredient(ingredient_c),
+        ],
+      })
     end
   end
 
@@ -164,10 +164,10 @@ RSpec.describe 'Recipe API' do
 
       it 'supports adding ingredients' do
         add_params = params.merge({
-                                    recipe_food_ingredients_attributes:
-                                      recipe_food_ingredients_attributes +
-                                        [{ food_ingredient_id: create(:food_ingredient).id }],
-                                  })
+          recipe_food_ingredients_attributes:
+            recipe_food_ingredients_attributes +
+              [{ food_ingredient_id: create(:food_ingredient).id }],
+        })
         put "/api/v1/user/recipes/#{recipe.id}.json", params: { recipe: add_params }
 
         reloaded_recipe = Recipe.find(recipe.id).reload
@@ -177,12 +177,12 @@ RSpec.describe 'Recipe API' do
       it 'supports removing ingredients with the _destroy flag' do
         delete_flag = { '_destroy' => true }
         remove_params = params.merge({
-                                       recipe_food_ingredients_attributes: [
-                                         recipe_food_ingredients_attributes[0].merge(delete_flag),
-                                         recipe_food_ingredients_attributes[1].merge(delete_flag),
-                                         recipe_food_ingredients_attributes[2],
-                                       ],
-                                     })
+          recipe_food_ingredients_attributes: [
+            recipe_food_ingredients_attributes[0].merge(delete_flag),
+            recipe_food_ingredients_attributes[1].merge(delete_flag),
+            recipe_food_ingredients_attributes[2],
+          ],
+        })
         put "/api/v1/user/recipes/#{recipe.id}.json", params: { recipe: remove_params }
 
         reloaded_recipe = Recipe.find(recipe.id).reload
@@ -239,10 +239,10 @@ RSpec.describe 'Recipe API' do
           expect(json['id']).not_to be_nil
           expect(json['name']).to eq(recipe_name)
           expect(json['created_by']).to eq({
-                                             'id' => user.id,
-                                             'email' => user.email,
-                                             'pantry_id' => user.pantry_id,
-                                           })
+            'id' => user.id,
+            'email' => user.email,
+            'pantry_id' => user.pantry_id,
+          })
           expect(json['food_ingredients']).to be_a(Array)
           expect(json['food_ingredients'].length).to eq(2)
 
@@ -272,10 +272,10 @@ RSpec.describe 'Recipe API' do
           post '/api/v1/user/recipes.json', params: { recipe: params }
           expect(response).to be_unprocessable
           expect(response.parsed_body).to eq({
-                                               'errors' => {
-                                                 'name' => ["can't be blank"],
-                                               },
-                                             })
+            'errors' => {
+              'name' => ["can't be blank"],
+            },
+          })
         end
 
         it 'does not create a recipe' do

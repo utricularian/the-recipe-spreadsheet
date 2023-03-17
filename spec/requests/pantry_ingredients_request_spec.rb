@@ -118,10 +118,10 @@ RSpec.describe 'Pantry Ingredients API' do
         pantry_ingredient = PantryIngredient.last
         json = response.parsed_body
         expect(json).to eq(expected_json(
-                             id: pantry_ingredient.id,
-                             pantry_id: user.pantry_id,
-                             food_ingredient:,
-                           ))
+          id: pantry_ingredient.id,
+          pantry_id: user.pantry_id,
+          food_ingredient:,
+        ))
       end
 
       describe 'the created record' do
@@ -147,10 +147,10 @@ RSpec.describe 'Pantry Ingredients API' do
           expect(response).to be_unprocessable
           payload = response.parsed_body
           expect(payload).to eq({
-                                  'errors' => {
-                                    'food_ingredient' => ['must exist'],
-                                  },
-                                })
+            'errors' => {
+              'food_ingredient' => ['must exist'],
+            },
+          })
         end
       end
     end

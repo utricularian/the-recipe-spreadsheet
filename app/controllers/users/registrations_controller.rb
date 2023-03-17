@@ -67,8 +67,7 @@ module Users
 
     def respond_with(resource, _opts = {})
       if resource.persisted?
-        render json: V1::UserSerializer.new(resource).serializable_hash[:data][:attributes],
-               status: :created
+        render json: V1::UserSerializer.new(resource).serializable_hash[:data][:attributes], status: :created
       else
         render json: { errors: resource.errors }, status: :unprocessable_entity
       end
