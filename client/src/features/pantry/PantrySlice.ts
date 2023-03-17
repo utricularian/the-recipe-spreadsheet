@@ -75,7 +75,7 @@ export const pantrySlice = createSlice({
       .addCase(removePantryItem.fulfilled, (state, action) => {
         const deletedId = action.payload.id
         state.items = state.items.filter((pantryIngredient: PantryIngredient) => {
-          return pantryIngredient.id != deletedId
+          return pantryIngredient.id !== deletedId
         })
         state.toast = {
           type: 'success',

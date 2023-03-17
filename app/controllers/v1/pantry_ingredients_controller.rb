@@ -5,6 +5,7 @@ module V1
     def index
       json = PantryIngredient
              .joins(:food_ingredient)
+             .includes(:food_ingredient)
              .where(pantry_id:)
              .order('lower(food_ingredients.name)')
              .map do |i|

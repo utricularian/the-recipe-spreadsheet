@@ -23,6 +23,10 @@ Rails.application.routes.draw do
       resources :pantry_ingredients, only: [:index, :create, :destroy]
       delete '/pantry_ingredients', to: 'pantry_ingredients#clear'
       resource :profile, only: [:show, :update]
+      resources :recipes, only: [:index, :show]
+      namespace :user do
+        resources :recipes, only: [:index, :create, :update]
+      end
     end
   end
 
