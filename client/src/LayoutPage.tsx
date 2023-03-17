@@ -6,8 +6,6 @@ import {getUser, selectUser} from "./slices/UserSlice";
 
 import NavBar from "./NavBar";
 
-import styles from './LayoutPage.module.css';
-
 function LayoutPage() {
   const dispatch = useAppDispatch();
   const loggedInUser = useAppSelector(selectUser);

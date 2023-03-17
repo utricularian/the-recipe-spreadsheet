@@ -117,7 +117,7 @@ export const userSlice = createSlice({
         state.user = action.payload;
         state.hasFetchedUser = true
       })
-      .addCase(getUser.rejected, (state, action) => {
+      .addCase(getUser.rejected, (state) => {
         state.user = null;
         state.hasFetchedUser = true
       })
