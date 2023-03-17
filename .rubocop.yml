@@ -8,6 +8,9 @@ Layout/ArgumentAlignment:
 Layout/ArrayAlignment:
   EnforcedStyle: with_fixed_indentation
 
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+
 Layout/LineLength:
   Max: 130
 

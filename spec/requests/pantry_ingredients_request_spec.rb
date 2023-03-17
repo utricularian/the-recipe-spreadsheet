@@ -64,12 +64,12 @@ RSpec.describe 'Pantry Ingredients API' do
         expect(response).to be_ok
         json = response.parsed_body
         expect(json).to eq(
-                          [
-                            expected_json(id: pantry_ingredient_a.id, pantry_id:, food_ingredient: food_ingredient_a),
-                            expected_json(id: pantry_ingredient_b.id, pantry_id:, food_ingredient: food_ingredient_b),
-                            expected_json(id: pantry_ingredient_c.id, pantry_id:, food_ingredient: food_ingredient_c),
-                          ],
-                        )
+          [
+            expected_json(id: pantry_ingredient_a.id, pantry_id:, food_ingredient: food_ingredient_a),
+            expected_json(id: pantry_ingredient_b.id, pantry_id:, food_ingredient: food_ingredient_b),
+            expected_json(id: pantry_ingredient_c.id, pantry_id:, food_ingredient: food_ingredient_c),
+          ],
+        )
       end
     end
   end
